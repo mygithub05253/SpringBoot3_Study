@@ -1,0 +1,170 @@
+스프링 부트 의존성 가져오는 방법
+1) 스프링 공식 Dependency Versions 문서 : https://bit.ly/3N0vENa
+2) 스타터 종류와 특정 스타터의 의존성이 궁금할 때에는 깃허브에서 확인하세요.
+=> 스타터 종류 참고(깃허브): https://bit.ly/40o8bZ
+
+스프링 부트 디렉터리 구성
+1. main
+- 실제 코드를 작성하는 공간
+- 프로젝트 실행에 필요한 소스 코드나 리소스 파일이 들어 있는 곳
+
+2. test
+- 프로젝트의 소스 코드를 테스트할 목적의 코드나 리소스 파일이 들어 있는 곳
+
+3. build.gradle
+- 빌드를 설정하는 파일
+- 의존성이나 플러그인 설정 등과 같이 빌드에 필요한 설정을 할 때 사용
+
+4. settings.gradle
+- 빌드할 프로젝트의 정보를 설정하는 파일
+
+스프링 부트 의존성 관리 방식
+1. implementation : 프로젝트 코드가 컴파일 시점과 런타임에 모두 해당 라이브러리를 필요로 할 때 사용
+2. testImplementation
+- 프로젝트의 테스트 코드를 컴파일하고 실행할 때만 필요한 의존성 설정
+- 테스트 코드에서만 사용하고 메인 애플리케이션 코드에서는 사용하지 않음
+
+3. runtimeOnly
+- 런타임에만 필요한 의존성 지정
+- 컴파일 시에는 필요하지 않지만, 애플리케이션을 실행할 때 필요한 라이브러리 설정
+
+4. compileOnly : 컴파일 시에만 필요하고 런타임에는 포함되지 않아야 하는 의존성 지정
+5. annotationProcessor : 컴파일 시에 애너테이션을 처리할 때 사용하는 도구의 의존성 지정
+
+테스트 코드
+- 작성한 코드가 의도대로 잘 동작하고 예상치 못한 문제가 없는 지 확인할 목적으로 작성하는 코드
+- test 디렉터리에서 작업
+
+given-when-then 테스트 패턴
+- given : 테스트 실행을 준비하는 단계
+- when : 테스트를 진행하는 단계
+- then : 테스트 결과를 검증하는 단계
+
+스프링 부트 스타터 테스트 목록
+1. JUnit : 자바 프로그래밍 언어용 단위 테스트 프레임워크
+2. Spring Test & Spring Boot Test : 스프링 부트 애플리케이션을 위한 통합 테스트 지원
+3. AsserU : 검증문ㅇ니 어설션을 작성하는 데 사용되는 라이브러리
+4. Hamcrest : 표현식을 이해하기 쉽게 만드는 데 사용되는 Matcher 라이브러리
+5. Mockito : 테스트에 사용할 가짜 객체인 목 객체를 쉽게 생성/관리/검증할 수 있게 지원하는 테스트 프레임워크
+6. JSONassert : JSON용 어설션 라이브러리
+7. JsonPath : JSON 데이터에서 특정 데이터를 선택하고 검색하기 위한 라이브러리
+
+JUnit 애너테이션
+1. @BeforeAll
+- 전체 테스트를 시작하기 전에 처음으로 한 번만 실행
+- 메서드를 static으로 선언
+
+2. @BeforeEach
+- 테스트 케이스를 시작하기 전에 매번 실행
+- 각 인스턴스에 대해 메서드를 호출해야 하므로 메서드는 static이 아니어야 함
+
+3. @AfterAll
+- 전체 테스트를 마치고 종료하기 전에 한 번만 실행
+- 메서드를 static으로 선언
+
+4. @AfterEach
+- 각 테스트 케이스를 종료하기 전에 매번 실행
+- 메서드는 static이 아니어야 함
+
+스프링 부트 테스트 애너테이션
+1. @SpringBootTest
+- 메인 애플리케이션 클래스에 추가하는 애너테이션인 @SpringBootApplication이 있는 클래스를 찾음
+- 해당 클래스에 포함되어 있는 빈을 찾은 다음 테스트용 애플리케이션 컨텍스트 생성
+
+2. @AutoConfigureMockMvc
+- MockMvc 생성하고 자동으로 구성하는 애너테이션
+- MockMvc : 애플리케이션을 서버에 배포하지 않고도 테스트용 MVC 환경을 만들어 요청/전송/응답 기능 제공
+- 컨트롤러를 테스트할 때 사용되는 클래스
+
+스프링 데이터 JPA에서 제공하는 메서드
+1. 조회 메서드
+1) 전체 조회 : findAll()
+2) 아이디로 조회 : findById()
+
+2. 쿼리 메서드 : findByName()
+=> 쿼리 메서드 명명 규칙에 맞게 정의 후 사용
+
+3. 추가/삭제 메서드
+1) 레코드 추가 : save()
+2) 한꺼번에 여러 레코드 추가 : saveAll()
+3) 아이디로 레코드 삭제 : deleteById()
+4) 모든 레코드 삭제 : deleteAll()
+
+4. 수정 메서드 : 조회 후 트랜잭션 범위 내에서 필드 값 변경
+=> @Transactional 애너테이션 사용
+=> @DataJpaTest 애너테이션이 있을 때는 굳이 선언하지 않아도 상관없음
+
+@GeneratedValue의 자동키 설정 방식
+1. AUTO : 선택한 데이터베이스 방언에 따라 방식을 자동으로 선택(기본값)
+2. IDENTITY : 기본키 생성을 데이터베이스에 위임 (= AUTO_INCREMENT)
+3. SEQUENCE : 데이터베이스 시퀀스를 사용해서 기본키를 할당하는 방법 (오라클에서 주로 사용)
+4. TABLE : 키 생성 테이블 사용
+
+@Column 애너테이션의 속성
+1. name
+- 필드와 매핑할 컬럼 이름
+- 설정하지 않으면 필드 이름으로 지정
+
+2. nullable
+- 컬럼의 null 허용 여부
+- 설정하지 않을 경우 true
+
+3. unique
+- 컬럼의 유일한 값 여부
+- 설정하지 않을 경우 false
+
+4. columnDefinition
+- 컬럼 정보 설정
+- default 값 지정 가능
+
+응답 코드 종류
+1. 200 OK : 요청이 성공적으로 수행
+2. 201 Created : 요청이 성공적으로 수행되었고, 새로운 리소스 생성
+3. 400 Bad Request : 요청 값이 잘못되어 요청 실패
+4. 403 Forbidden : 권한이 없어 요청 실패
+5. 404 Not Found : 요청 값으로 찾은 리소스가 없어 요청 실패
+6. 500 Internal Server Error : 서버 상에 문제가 있어 요청 실패
+
+자바 직렬화/역직렬화
+1. 직렬화
+- 자바 시스템 내부에서 사용되는 객체를 외부에서 사용하도록 데이터를 변환하는 작업
+
+2. 역직렬화
+- 직렬화의 반대
+- 외부에서 사용하는 데이터를 자바의 객체 형태로 변환하는 작업
+
+assertThat() 메서드
+1. assertThat(articles.size()).isEqualTo(1);
+2. assertThat(articles.size()).isGreaterThan(2);
+3. assertThat(articles.size()).isLessThan(5);
+4. assertThat(articles.size( )).isZero( );
+5. assertThat(article.title()).isEqalTo(title/content 등);
+6. assertThat(article.title( )).isNotEmpty( );
+7. assertThat(article.title()).contains("제");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
