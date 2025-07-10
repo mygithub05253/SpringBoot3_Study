@@ -3,7 +3,7 @@ package me.shinsunyoung.springbootdeveloper.dto;
 // DTO : 계층끼리 데이터를 교환하기 위해 사용하는 객체
 // 데이터를 단순하게 옮기기 위해 사용하는 전달자 역할 => 별도의 비즈니스 로직 포함 X
 
-// 서비스 메서드 코드
+// 블로그 글 작성 메서드
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
