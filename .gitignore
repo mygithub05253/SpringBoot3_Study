@@ -1,0 +1,16 @@
+
+# __auto_backup_ignore__
+*.npy
+*.mp4
+*.model
+*.bin
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+*.pem
+*.key
+*.stackdump
+.ipynb_checkpoints/

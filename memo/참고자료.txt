@@ -142,9 +142,24 @@ assertThat() 메서드
 6. assertThat(article.title( )).isNotEmpty( );
 7. assertThat(article.title()).contains("제");
 
+템플릿 엔진
+- 스프링 서버에서 데이터를 받아 우리가 보는 웹 페이지, 즉 HTML 상에 해당 데이터를 넣어 보여주는 도구
+- HTML과 함께 템플릿 엔진을 위한 문법을 섞어 사용해야 함
 
+타임리프 표현식
+1. ${...} : 변수의 값 표현식
+2. #{...} : 속성 파일 값 표현식
+3. @{...} : URL 표현식
+4. *{...} : 선택한 변수의 표현식 => th:object에서 선택한 객체에 접근
 
-
+타임리프 문법
+1. th:text => 텍스트를 표현할 때 사용
+2. th:each => 컬렉션을 반복할 때 사용
+3. th:if => 조건이 true일 때만 표시
+4. th:unless => 조건이 false일 때만 표시
+5. th:href => 이동 경로
+6. th:with => 변수값으로 지정
+7. th:object => 선택한 객체로 지정
 
 
 
